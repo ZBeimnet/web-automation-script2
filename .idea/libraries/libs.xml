@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://D:/New folder (2)/client-combined-3.141.59.jar!/" />
+      <root url="file://D:/New folder (2)/libs" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/New folder (2)/client-combined-3.141.59-sources.jar!/" />
+    </SOURCES>
+    <jarDirectory url="file://D:/New folder (2)/libs" recursive="false" />
+  </library>
+</component>
