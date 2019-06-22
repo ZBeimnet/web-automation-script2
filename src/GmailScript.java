@@ -8,16 +8,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+import java.util.Scanner;
 
 public class GmailScript {
 
     public static void main(String[] args) {
         System.setProperty("webdriver.gecko.driver", "C:\\Gecko\\geckodriver.exe");
         FirefoxDriver driver = new FirefoxDriver();
+        Scanner input = new Scanner(System.in);
 
         String baseUrl = "https://www.gmail.com";
-        String myUsername = "zbeimnet@gmail.com";
-        String myPassword = "157QwqEGH99gLbZ";
+
+        System.out.print("Enter your email: ");
+        String myUsername = input.next();
+
+        System.out.print("Enter your password: ");
+        String myPassword = input.next();
 
         driver.get(baseUrl);
 
@@ -27,17 +33,27 @@ public class GmailScript {
         WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='password']")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='password']")));
-        WebElement elementpwd = driver.findElement(By.xpath("//input[@type='password']"));
-        elementpwd.sendKeys(myPassword);
+        driver.findElement(By.xpath("//input[@type='password']")).sendKeys(myPassword);
         driver.findElement(By.id("passwordNext")).click();
 
-        List<WebElement> unreademail = driver.findElements(By.className("zE"));
+        //retrieving unread emails
+        List<WebElement> unreadEmails = driver.findElements(By.className("zE"));
 
+        //declaring a string builder to store the unread emails
+        StringBuilder emails;
+        emails = new StringBuilder();
+
+        String noOfUnreadEmails = "Number of Unread Emails: " + unreadEmails.size() + "\n\n";
+        emails.append(noOfUnreadEmails);
+
+        //traversing each row and appending values
         for (WebElement message:
-             unreademail) {
-            System.out.println(message.getText());
+             unreadEmails) {
+            emails.append(message.getText());
         }
-        System.out.println("Total No. of Unread Mails: " + unreademail.size());
+
+        //writing to a file
+        writeToFile(emails.toString());
     }
 
     private static void writeToFile(String content) {
