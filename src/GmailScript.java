@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 public class GmailScript {
 
@@ -29,6 +30,14 @@ public class GmailScript {
         WebElement elementpwd = driver.findElement(By.xpath("//input[@type='password']"));
         elementpwd.sendKeys(myPassword);
         driver.findElement(By.id("passwordNext")).click();
+
+        List<WebElement> unreademail = driver.findElements(By.className("zE"));
+
+        for (WebElement message:
+             unreademail) {
+            System.out.println(message.getText());
+        }
+        System.out.println("Total No. of Unread Mails: " + unreademail.size());
     }
 
     private static void writeToFile(String content) {
